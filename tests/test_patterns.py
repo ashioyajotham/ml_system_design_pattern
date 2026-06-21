@@ -27,7 +27,6 @@ class PatternTests(unittest.TestCase):
 
         self.assertEqual(tuple(out.shape), (2, 3))
 
-
     def test_base_module_decorator_delegates(self):
         base = ModuleDecorator(build_linear(4, 8, 2))
 
