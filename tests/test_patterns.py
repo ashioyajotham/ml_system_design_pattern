@@ -52,6 +52,11 @@ class PatternTests(unittest.TestCase):
         self.assertIsInstance(builder, ExperimentBuilder)
         self.assertEqual(tuple(out.shape), (3, 2))
 
+        mlp_cfg = ExperimentConfig(model_name="mlp", input_dim=4, hidden_dim=8, output_dim=2)
+        mlp_model = builder.build_model(mlp_cfg)
+        mlp_out = mlp_model(torch.randn(3, 4))
+        self.assertEqual(tuple(mlp_out.shape), (3, 2))
+
 
 if __name__ == "__main__":
     unittest.main()
