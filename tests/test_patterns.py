@@ -8,7 +8,7 @@ except ModuleNotFoundError:  # pragma: no cover
 if torch is not None:
     from ml_system_design_pattern.builder import ExperimentBuilder, ExperimentConfig
     from ml_system_design_pattern.composite import ModelEnsemble
-    from ml_system_design_pattern.decorators import ModuleDecorator
+    from ml_system_design_pattern.decorators import ModuleDecorator, ValidationDecorator
     from ml_system_design_pattern.factory import ModelFactory
     from ml_system_design_pattern.models import build_linear, build_mlp
     from ml_system_design_pattern.starter import create_starter_experiment
@@ -56,6 +56,20 @@ class PatternTests(unittest.TestCase):
         mlp_model = builder.build_model(mlp_cfg)
         mlp_out = mlp_model(torch.randn(3, 4))
         self.assertEqual(tuple(mlp_out.shape), (3, 2))
+
+    def test_factory_create_unknown_model_raises(self):
+        factory = ModelFactory()
+        with self.assertRaises(ValueError):
+            factory.create("missing", input_dim=4, hidden_dim=8, output_dim=2)
+
+    def test_ensemble_requires_models(self):
+        with self.assertRaises(ValueError):
+            ModelEnsemble([])
+
+    def test_validation_decorator_rejects_1d_input(self):
+        model = ValidationDecorator(build_linear(4, 8, 2))
+        with self.assertRaises(ValueError):
+            model(torch.randn(4))
 
 
 if __name__ == "__main__":
