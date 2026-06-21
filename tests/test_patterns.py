@@ -2,7 +2,7 @@ import unittest
 
 try:
     import torch
-except Exception:  # pragma: no cover
+except ModuleNotFoundError:  # pragma: no cover
     torch = None
 
 if torch is not None:

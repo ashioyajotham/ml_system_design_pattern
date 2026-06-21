@@ -13,8 +13,7 @@ def build_mlp(input_dim: int, hidden_dim: int, output_dim: int) -> nn.Module:
     )
 
 
-def build_linear(input_dim: int, hidden_dim: int, output_dim: int) -> nn.Module:
+def build_linear(input_dim: int, _hidden_dim: int, output_dim: int) -> nn.Module:
     """Build a linear model with a factory-compatible signature."""
 
-    _ = hidden_dim
     return nn.Linear(input_dim, output_dim)
