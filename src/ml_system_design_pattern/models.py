@@ -13,5 +13,6 @@ def build_mlp(input_dim: int, hidden_dim: int, output_dim: int) -> nn.Module:
     )
 
 
-def build_linear(input_dim: int, hidden_dim_unused: int, output_dim: int) -> nn.Module:
+def build_linear(input_dim: int, hidden_dim: int, output_dim: int) -> nn.Module:
+    _ = hidden_dim
     return nn.Linear(input_dim, output_dim)

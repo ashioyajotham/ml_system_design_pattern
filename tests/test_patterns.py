@@ -8,6 +8,7 @@ except Exception:  # pragma: no cover
 if torch is not None:
     from ml_system_design_pattern.builder import ExperimentBuilder, ExperimentConfig
     from ml_system_design_pattern.composite import ModelEnsemble
+    from ml_system_design_pattern.decorators import ModuleDecorator
     from ml_system_design_pattern.factory import ModelFactory
     from ml_system_design_pattern.models import build_linear, build_mlp
     from ml_system_design_pattern.starter import create_starter_experiment
@@ -25,6 +26,14 @@ class PatternTests(unittest.TestCase):
         out = model(torch.randn(2, 4))
 
         self.assertEqual(tuple(out.shape), (2, 3))
+
+
+    def test_base_module_decorator_delegates(self):
+        base = ModuleDecorator(build_linear(4, 8, 2))
+
+        out = base(torch.randn(1, 4))
+
+        self.assertEqual(tuple(out.shape), (1, 2))
 
     def test_composite_ensemble(self):
         m1 = build_linear(4, 8, 2)
