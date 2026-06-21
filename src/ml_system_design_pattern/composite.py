@@ -17,7 +17,7 @@ class ModelEnsemble(nn.Module):
         if not self.models:
             raise ValueError("ModelEnsemble requires at least one model")
         if reduction != "mean":
-            raise ValueError("Only 'mean' reduction is currently supported")
+            raise ValueError(f"Only 'mean' reduction is currently supported. Got: '{reduction}'")
         self.reduction = reduction
 
     def forward(self, inputs: Tensor) -> Tensor:
